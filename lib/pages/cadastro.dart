@@ -113,46 +113,56 @@ class _CadastroPageState extends State<CadastroPage> {
 
               const SizedBox(height: 25),
 
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    width: 250,
-                  ),
+              // Título centralizado
+              Center(
+  child: Column(
+    children: [
+      Image.asset(
+        'assets/logo.png',
+        width: 250,
+      ),
 
-                  const SizedBox(height: 12),
+      const SizedBox(height: 12),
 
-                  const Text(
-                    'seu cinema pessoal',
-                    style: TextStyle(
-                      color: Color(0xFF777777),
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-
+      const Text(
+        'seu cinema pessoal',
+        style: TextStyle(
+          color: Color(0xFF777777),
+          fontSize: 14,
+          letterSpacing: 1,
+        ),
+      ),
+    ],
+  ),
+),
               const SizedBox(height: 45),
 
-              const Text(
-                'Criar conta',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Center(
+  child: Column(
+    children: [
+      const Text(
+        'Criar conta',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
 
-              const SizedBox(height: 10),
+      const SizedBox(height: 10),
 
-              const Text(
-                'Junte-se e organize seu mundo cinematográfico',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF777777),
-                  fontSize: 15,
-                ),
-              ),
+      const Text(
+        'Junte-se e organize seu mundo cinematográfico',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Color(0xFF777777),
+          fontSize: 15,
+        ),
+      ),
+    ],
+  ),
+),
               const SizedBox(height: 35),
 
               campo(
@@ -198,7 +208,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 child: ElevatedButton(
                   onPressed: loading ? null : cadastrar,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 242, 246, 246),
                     foregroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
@@ -225,7 +235,7 @@ class _CadastroPageState extends State<CadastroPage> {
                   'Ao continuar, você concorda com os\nTermos de Uso e Política de Privacidade',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF666666),
+                    color: Color.fromARGB(255, 74, 74, 74),
                     height: 1.5,
                   ),
                 ),
@@ -239,7 +249,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     context.go('/');
                   },
                   child: const Text(
-                    'Já tenho conta  Entrar',
+                    'Já tem conta? Entrar',
                     style: TextStyle(
                       color: Colors.white,
                     ),
