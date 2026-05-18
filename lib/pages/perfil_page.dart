@@ -62,6 +62,18 @@ class ProfileScreen extends StatelessWidget {
                           minimumSize: const Size(double.infinity, 50),
                         ),
                       ),
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          await supabase.auth.signOut();
+                          context.go('/home');
+                        },
+                        icon: const Icon(Icons.logout),
+                        label: const Text('Voltar'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          minimumSize: const Size(double.infinity, 50),
+                        ),
+                      ),
                     ],
                   ),
                 ),
