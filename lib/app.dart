@@ -5,6 +5,10 @@ import 'pages/splash_page.dart';
 import 'pages/login.dart';
 import 'pages/cadastro.dart';
 import 'pages/home_page.dart';
+import 'pages/detalhes_page.dart';
+import 'pages/favoritos_page.dart';
+
+import 'models/video_model.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -27,6 +31,19 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/home',
       builder: (context, state) => const HomePage(),
+    ),
+
+    GoRoute(
+      path: '/detalhes',
+      builder: (context, state) {
+        final video = state.extra as VideoModel;
+        return DetalhesPage(video: video);
+      },
+    ),
+
+    GoRoute(
+      path: '/favoritos',
+      builder: (context, state) => const FavoritosPage(),
     ),
 
   ],
