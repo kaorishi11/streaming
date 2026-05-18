@@ -48,11 +48,38 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.black,
 
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          'StreamAcademy',
-          style: TextStyle(color: Colors.white),
-        ),
+  backgroundColor: Colors.black,
+
+  title: const Text(
+    'StreamAcademy',
+    style: TextStyle(color: Colors.white),
+  ),
+
+  actions: [
+
+        IconButton(
+            onPressed: () {
+              context.go('/favoritos');
+            },
+
+            icon: const Icon(
+              Icons.favorite,
+              color: Colors.red,
+            ),
+          ),
+
+          IconButton(
+            onPressed: () {
+              context.go('/perfil');
+            },
+
+            icon: const Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+          ),
+
+        ],
       ),
 
       body: loading
