@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({super.key});
@@ -10,16 +10,15 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
-
+  final nomeController = TextEditingController();
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
 
   bool loading = false;
+  bool obscurePassword = true;
 
   Future<void> cadastrar() async {
-
     try {
-
       setState(() {
         loading = true;
       });
@@ -29,78 +28,224 @@ class _CadastroPageState extends State<CadastroPage> {
         password: senhaController.text.trim(),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Conta criada com sucesso!'),
-        ),
-      );
-
       if (mounted) {
         context.go('/');
       }
-
     } catch (e) {
-
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro: $e')),
+        SnackBar(
+          backgroundColor: Colors.black,
+          content: Text('Erro: $e'),
+        ),
       );
-
     } finally {
-
       setState(() {
         loading = false;
       });
-
     }
+  }
+
+  Widget campo({
+    required String titulo,
+    required TextEditingController controller,
+    required IconData icon,
+    bool obscure = false,
+    Widget? suffixIcon,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          titulo,
+          style: const TextStyle(
+            color: Color(0xFF777777),
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1.5,
+          ),
+        ),
+        const SizedBox(height: 10),
+        TextField(
+          controller: controller,
+          obscureText: obscure,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            prefixIcon: Icon(icon),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
+            ),
+            suffixIcon: suffixIcon,
+          ),
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cadastro'),
-      ),
-
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(26),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              TextButton.icon(
+                onPressed: () {
+                  context.go('/');
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.grey,
+                  size: 16,
+                ),
+                label: const Text(
+                  'Voltar',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
 
-              TextField(
+              const SizedBox(height: 25),
+
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/logo.png',
+                    width: 250,
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  const Text(
+                    'seu cinema pessoal',
+                    style: TextStyle(
+                      color: Color(0xFF777777),
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 45),
+
+              const Text(
+                'Criar conta',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              const Text(
+                'Junte-se e organize seu mundo cinematográfico',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF777777),
+                  fontSize: 15,
+                ),
+              ),
+              const SizedBox(height: 35),
+
+              campo(
+                titulo: 'NOME',
+                controller: nomeController,
+                icon: Icons.person_outline,
+              ),
+
+              const SizedBox(height: 20),
+
+              campo(
+                titulo: 'E-MAIL',
                 controller: emailController,
-                decoration: const InputDecoration(
-                  labelText: 'E-mail',
-                  border: OutlineInputBorder(),
+                icon: Icons.email_outlined,
+              ),
+
+              const SizedBox(height: 20),
+
+              campo(
+                titulo: 'SENHA',
+                controller: senhaController,
+                icon: Icons.lock_outline,
+                obscure: obscurePassword,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      obscurePassword = !obscurePassword;
+                    });
+                  },
+                  icon: Icon(
+                    obscurePassword
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 35),
+
+              SizedBox(
+                width: double.infinity,
+                height: 55,
+                child: ElevatedButton(
+                  onPressed: loading ? null : cadastrar,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: loading
+                      ? const CircularProgressIndicator(
+                          color: Colors.black,
+                        )
+                      : const Text(
+                          'Cadastrar',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
 
               const SizedBox(height: 20),
 
-              TextField(
-                controller: senhaController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Senha',
-                  border: OutlineInputBorder(),
+              const Center(
+                child: Text(
+                  'Ao continuar, você concorda com os\nTermos de Uso e Política de Privacidade',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF666666),
+                    height: 1.5,
+                  ),
                 ),
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
 
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: loading ? null : cadastrar,
-                  child: loading
-                      ? const CircularProgressIndicator()
-                      : const Text('Cadastrar'),
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    context.go('/');
+                  },
+                  child: const Text(
+                    'Já tenho conta  Entrar',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-
             ],
           ),
         ),
