@@ -56,28 +56,38 @@ class _HomePageState extends State<HomePage> {
   ),
 
   actions: [
+      IconButton(
+        onPressed: () {
+          context.go('/historico');
+        },
 
-        IconButton(
-            onPressed: () {
-              context.go('/favoritos');
-            },
+        icon: const Icon(
+          Icons.history,
+          color: Colors.white,
+        ),
+      ),
 
-            icon: const Icon(
-              Icons.favorite,
-              color: Colors.red,
-            ),
-          ),
+      IconButton(
+        onPressed: () {
+          context.go('/favoritos');
+      },
 
-          IconButton(
-            onPressed: () {
-              context.go('/perfil');
-            },
+      icon: const Icon(
+        Icons.favorite,
+        color: Colors.red,
+        ),
+      ),
 
-            icon: const Icon(
-              Icons.person,
-              color: Colors.white,
-            ),
-          ),
+      IconButton(
+        onPressed: () {
+          context.go('/perfil');
+        },
+
+        icon: const Icon(
+          Icons.person,
+          color: Colors.white,
+        ),
+      ),
 
         ],
       ),

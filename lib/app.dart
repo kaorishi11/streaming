@@ -7,7 +7,8 @@ import 'pages/cadastro.dart';
 import 'pages/home_page.dart';
 import 'pages/detalhes_page.dart';
 import 'pages/favoritos_page.dart';
-import 'pages/perfil.dart';
+import 'pages/perfil_page.dart';
+import 'pages/historico_page.dart';
 
 import 'models/video_model.dart';
 
@@ -53,6 +54,11 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/favoritos',
       builder: (context, state) => const FavoritosPage(),
+    ),
+    
+    GoRoute(
+      path: '/historico',
+      builder: (context, state) => const HistoricoPage(),
     ),
 
     GoRoute(
