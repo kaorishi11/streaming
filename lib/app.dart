@@ -7,12 +7,12 @@ import 'pages/cadastro.dart';
 import 'pages/home_page.dart';
 import 'pages/detalhes_page.dart';
 import 'pages/favoritos_page.dart';
+import 'pages/perfil.dart';
 
 import 'models/video_model.dart';
 
 final GoRouter router = GoRouter(
   routes: [
-
     GoRoute(
       path: '/',
       builder: (context, state) => const SplashPage(),
@@ -36,7 +36,16 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/detalhes',
       builder: (context, state) {
-        final video = state.extra as VideoModel;
+        final video = state.extra;
+
+        if (video is! VideoModel) {
+          return const Scaffold(
+            body: Center(
+              child: Text('Vídeo não encontrado'),
+            ),
+          );
+        }
+
         return DetalhesPage(video: video);
       },
     ),
@@ -46,6 +55,10 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const FavoritosPage(),
     ),
 
+    GoRoute(
+      path: '/perfil',
+      builder: (context, state) => const ProfileScreen(),
+    ),
   ],
 );
 
@@ -54,7 +67,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: router,
